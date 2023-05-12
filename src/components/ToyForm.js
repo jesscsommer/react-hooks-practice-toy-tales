@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ToyForm = ({ addToy }) => {
+const ToyForm = ({ updateToys }) => {
   const initialState = {
     name: '',
     image: '',
@@ -28,7 +28,7 @@ const ToyForm = ({ addToy }) => {
       body: JSON.stringify(formData)
     })
     .then(res => res.json())
-    .then(addToy)
+    .then(updateToys)
     .catch(err => console.error(err))
     setFormData(initialState)
   }

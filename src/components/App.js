@@ -24,20 +24,23 @@ const App = () =>  {
     setShowForm((showForm) => !showForm);
   }
 
-  const addToy = (newToy) => {
-    setToys(toys => [newToy, ...toys])
+  const updateToys = (updatedToy) => {
+    if (toys.includes(updatedToy)) {
+      setToys(toys => toys.filter(toy => toy.id !== updatedToy.id))
+    } else {
+      setToys(toys => [updatedToy, ...toys])
+    }
   }
-
 
 
   return (
     <>
       <Header />
-      {showForm ? <ToyForm addToy={addToy} /> : null}
+      {showForm ? <ToyForm updateToys={updateToys} /> : null}
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} />
+      <ToyContainer toys={toys} updateToys={updateToys} />
     </>
   );
 }
