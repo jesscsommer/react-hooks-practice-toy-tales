@@ -32,6 +32,9 @@ const App = () =>  {
     }
   }
 
+  const mapToys = (updatedToy) => {
+    setToys(toys => toys.map(toy => toy.id === updatedToy.id ? updatedToy : toy))
+  }
 
   return (
     <>
@@ -40,7 +43,7 @@ const App = () =>  {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys={toys} updateToys={updateToys} />
+      <ToyContainer toys={toys} updateToys={updateToys} mapToys={mapToys} />
     </>
   );
 }

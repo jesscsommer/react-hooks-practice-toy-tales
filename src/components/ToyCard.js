@@ -1,6 +1,6 @@
 import React from "react";
 
-const ToyCard = ({ toy, updateToys }) => {
+const ToyCard = ({ toy, updateToys, mapToys }) => {
   const {name, image, likes, id } = toy
 
   const handleDelete = () => {
@@ -9,6 +9,21 @@ const ToyCard = ({ toy, updateToys }) => {
       })
       .then(() => updateToys(toy))
       .catch(err => console.error(err))
+  }
+
+  const handleLike = () => {
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        likes: likes + 1
+      })
+    })
+    .then(res => res.json())
+    .then(mapToys)
+    .catch(err => console.error(err))
   }
 
   return (
@@ -20,7 +35,7 @@ const ToyCard = ({ toy, updateToys }) => {
         className="toy-avatar"
       />
       <p>{likes} Likes </p>
-      <button className="like-btn">Like {"<3"}</button>
+      <button onClick={handleLike} className="like-btn">Like {"<3"}</button>
       <button onClick={handleDelete} className="del-btn">Donate to GoodWill</button>
     </div>
   );
